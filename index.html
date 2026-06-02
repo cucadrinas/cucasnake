@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CucadrinasSnake Web Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div id="pantalla-bienvenida" class="escena activa">
+        <h1>🐍 CucaSnake Joc Web 🐉</h1>
+        <button id="btn-continuar">CONTINUAR</button>
+        <button id="btn-feedback" class="btn-neutral">FEEDBACK</button>
+    </div>
+
+    <div id="pantalla-opciones" class="escena">
+        <h2>Configuració</h2>
+        
+        <div class="control-group">
+            <label>🔊 SO</label>
+            <label class="switch">
+            <input type="checkbox" id="toggle-sonido" checked>
+            <span class="slider"></span>
+            </label>
+        </div>
+        
+        <div class="control-group">
+            <label for="slider-dureza">🐱‍👤 DIFICULTAT</label>
+            <input type="range" id="slider-dureza" min="1" max="10" value="5">
+        </div>
+        
+        <button id="btn-iniciar">INICIAR PARTIDA</button>
+        <button id="btn-volver-opciones" class="btn-neutral">TORNAR</button>
+    </div>
+
+    <div id="pantalla-juego" class="escena">
+        <div id="marcador">
+            <span>Captures: <span id="ui-captures">0</span></span>
+            <span>Temps: <span id="ui-tiempo">00:00</span></span>
+        </div>
+        
+        <canvas id="game-canvas" width="600" height="600"></canvas>
+        
+        <button id="btn-salir" class="btn-peligro">SORTIR</button>
+    </div>
+    <div id="custom-modal" class="modal-overlay">
+        <div class="modal-content">
+            <p id="modal-mensaje">Missatge de prova</p>
+            <button id="modal-btn-cerrar">OK</button>
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>

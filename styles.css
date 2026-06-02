@@ -1,0 +1,330 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    text-align: center;
+}
+
+/* Gestión de Escenas */
+.escena {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    background-color: #2a2a2a;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.6);
+    min-width: 300px;
+}
+
+.escena.activa {
+    display: flex;
+}
+
+/* Tipografía y Controles */
+h1 {
+    color: #4CAF50;
+    margin-bottom: 30px;
+}
+
+h2 {
+    color: #4CAF50;
+    margin-bottom: 30px;
+}
+
+label {
+    color: #4CAF50;
+    margin-bottom: 30px;
+}
+
+button {
+    padding: 12px 24px;
+    margin: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    width: 80%;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+button.btn-peligro {
+    background-color: #d32f2f;
+    margin-top: 20px;
+}
+
+button.btn-peligro:hover {
+    background-color: #b71c1c;
+}
+
+button.btn-neutral {
+    background-color: gray;
+    margin-top: 20px;
+}
+
+button.btn-neutral:hover {
+    background-color: darkgray;
+}
+
+.control-group {
+    margin: 15px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.control-group label {
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+/* Canvas del juego */
+canvas {
+    background-color: #000;
+    border: 3px solid #4CAF50;
+    border-radius: 4px;
+    margin-top: 15px;
+    box-shadow: inset 0 0 10px rgba(76, 175, 80, 0.2);
+}
+
+#marcador {
+    display: flex;
+    justify-content: space-between;
+    width: 600px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #4CAF50;
+}
+
+/* ==========================================
+   ACTIVADOR DESLIZABLE (SWITCH TOGGLE)
+   ========================================== */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 130px;
+    height: 38px;
+    margin-top: 5px;
+}
+
+/* Ocultamos el checkbox original */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* El fondo del deslizador */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #d32f2f; /* Rojo por defecto (Desactivado / SILENCI) */
+    transition: background-color 0.4s;
+    border-radius: 34px;
+    display: flex;
+    align-items: center;
+}
+
+/* Texto interno del deslizador */
+.slider::before {
+    position: absolute;
+    right: 15px;
+    content: "SILENCI";
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+/* El botón circular blanco */
+.slider::after {
+    position: absolute;
+    content: "";
+    height: 30px;
+    width: 30px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: transform 0.4s;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+/* Cambios visuales cuando el switch está ACTIVADO (true) */
+input:checked + .slider {
+    background-color: #4CAF50; /* Fondo Verde */
+}
+
+input:checked + .slider::before {
+    content: "ACTIVAT";
+    left: 15px;
+    right: auto;
+}
+
+input:checked + .slider::after {
+    transform: translateX(92px); /* Desplaza el círculo a la derecha */
+}
+
+
+/* ==========================================
+   PERSONALIZACIÓN DEL DELIZADOR (RANGE INPUT)
+   ========================================== */
+
+#slider-dureza {
+    -webkit-appearance: none; /* Quita el diseño por defecto en Chrome/Safari/Edge */
+    appearance: none;
+    width: 80%;
+    background: transparent;  /* Permite ver la barra personalizada que haremos abajo */
+    margin: 20px 0;
+}
+
+/* Quita el borde de enfoque por defecto */
+#slider-dureza:focus {
+    outline: none;
+}
+
+/* ------------------------------------------
+   1. LA BARRA (TRACK)
+   ------------------------------------------ */
+
+/* Para Chrome, Safari y Edge */
+#slider-dureza::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 8px;              /* Grosor de la barra */
+    cursor: pointer;
+    background: #444;         /* Color gris oscuro de fondo */
+    border-radius: 4px;       /* Bordes redondeados */
+    border: 1px solid #555;
+}
+
+/* Para Firefox */
+#slider-dureza::-moz-range-track {
+    width: 100%;
+    height: 8px;
+    cursor: pointer;
+    background: #444;
+    border-radius: 4px;
+    border: 1px solid #555;
+}
+
+/* ------------------------------------------
+   2. EL PUNTO MARCADOR (THUMB)
+   ------------------------------------------ */
+
+/* Para Chrome, Safari y Edge */
+#slider-dureza::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Quita el círculo gris por defecto */
+    height: 22px;             /* Alto del botón */
+    width: 22px;              /* Ancho del botón */
+    border-radius: 50%;       /* Lo hace perfectamente redondo */
+    background: #4CAF50;      /* Color Verde principal de tu juego */
+    cursor: pointer;
+    /* Truco matemático para centrar el botón verticalmente en la barra:
+       margin-top = (altura_barra / 2) - (altura_boton / 2) -> (8/2) - (22/2) = 4 - 11 = -7px */
+    margin-top: -7px; 
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+/* Efecto cuando pasas el ratón por encima en Chrome/Safari/Edge */
+#slider-dureza::-webkit-slider-thumb:hover {
+    background: #45a049;      /* Verde un poco más oscuro */
+    transform: scale(1.15);   /* Se agranda un poco al pasar el cursor */
+}
+
+/* Para Firefox */
+#slider-dureza::-moz-range-thumb {
+    height: 22px;
+    width: 22px;
+    border: none;             /* Firefox añade un borde gris por defecto */
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+/* Efecto cuando pasas el ratón por encima en Firefox */
+#slider-dureza::-moz-range-thumb:hover {
+    background: #45a049;
+    transform: scale(1.15);
+}
+
+/* ==========================================
+   VENTANA EMERGENTE PERSONALIZADA (MODAL)
+   ========================================== */
+
+/* Capa oscura de fondo que cubre toda la pantalla */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo semitransparente oscuro */
+    backdrop-filter: blur(8px);           /* El truco mágico para el efecto desenfoque */
+    -webkit-backdrop-filter: blur(8px);   /* Compatibilidad con Safari */
+    display: none;                         /* Oculto por defecto */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;                        /* Asegura que se dibuje por encima de todo */
+}
+
+/* Se activa dinámicamente con JavaScript */
+.modal-overlay.activo {
+    display: flex;
+}
+
+/* La pequeña ventana flotante */
+.modal-content {
+    background-color: #2a2a2a;
+    border: 2px solid #4CAF50;            /* Borde verde a juego */
+    border-radius: 12px;
+    padding: 30px;
+    max-width: 400px;
+    width: 85%;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.8);
+    text-align: center;
+    animation: aparecerModal 0.3s ease-out; /* Animación suave de entrada */
+}
+
+#modal-mensaje {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 25px;
+    color: #f0f0f0;
+}
+
+/* Botón de aceptación del modal */
+#modal-btn-cerrar {
+    width: auto;
+    min-width: 120px;
+    margin: 0 auto;
+    padding: 10px 20px;
+}
+
+/* Animación de escala para que la ventana brote del centro */
+@keyframes aparecerModal {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
